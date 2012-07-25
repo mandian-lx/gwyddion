@@ -130,6 +130,8 @@ find %{buildroot}%{pkglibexecdir} -type f -name \*.rgi -print0 | xargs -0 chmod 
 # Perl, Python, and Ruby modules are private, remove the Perl man page.
 rm -f %{buildroot}%{_mandir}/man3/Gwyddion::dump.*
 
+find %{buildroot} -type f -name '*.la' -delete
+
 %files -f %{name}.lang
 %defattr(755,root,root)
 %{_bindir}/%{name}
