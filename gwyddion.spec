@@ -130,8 +130,6 @@ find %{buildroot}%{pkglibexecdir} -type f -name \*.rgi -print0 | xargs -0 chmod 
 # Perl, Python, and Ruby modules are private, remove the Perl man page.
 rm -f %{buildroot}%{_mandir}/man3/Gwyddion::dump.*
 
-find %{buildroot} -type f -name '*.la' -delete
-
 %files -f %{name}.lang
 %defattr(755,root,root)
 %{_bindir}/%{name}
@@ -235,3 +233,10 @@ find %{buildroot} -type f -name '*.la' -delete
 %files thumbnailer-kde4
 %defattr(-,root,root)
 %{_libdir}/kde4/gwythumbcreator.so
+
+
+%changelog
+* Wed Jul 25 2012 Dmitry Mikhirev <dmikhirev@mandriva.org> 2.29-1
++ Revision: 810983
+- imported package gwyddion
+
