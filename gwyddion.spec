@@ -22,6 +22,7 @@ Source1:	https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz.sig
 BuildRequires:	ruby
 BuildRequires:	bzip2-devel
 BuildRequires:	cfitsio-devel
+BuildRequires:	intltool
 BuildRequires:	kdelibs-devel > 4
 BuildRequires:	pkgconfig(fftw3)
 BuildRequires:	pkgconfig(gconf-2.0)
