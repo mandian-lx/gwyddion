@@ -47,7 +47,7 @@ BuildRequires:	pkgconfig(zlib)
 BuildRequires:	python2-numpy #pythonegg(numpy)
 
 BuildRequires:	epydoc
-#BuildRequires:	gtk-doc
+BuildRequires:	gtk-doc
 #BuildRequires:	fpc #-base
 
 %description
