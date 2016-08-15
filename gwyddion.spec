@@ -8,20 +8,21 @@
 %define libgwyprocess %mklibname gwyprocess %{api} %{major}
 %define devname %mklibname %{name} %{api} -d
 
-Summary:	An SPM data visualization and analysis tool
+Summary:	A SPM (scanning probe microscopy) data visualization and analysis tool
 Name:		gwyddion
-Version:	2.35
-Release:	2
+Version:	2.45
+Release:	1
 License:	GPLv2+
-Group:		Sciences/Other
-Url:		http://gwyddion.net/
-Source0:	http://prdownloads.sourceforge.net/gwyddion/%{name}-%{version}.tar.xz
-Source1:	http://prdownloads.sourceforge.net/gwyddion/%{name}-%{version}.tar.xz.sig
+Group:		Sciences/Physics
+URL:		http://gwyddion.net/
+Source0:	https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
+Source1:	https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz.sig
+#Patch0:	http://gwyddion.net/download/2.45/gwyddion-2.45-gtk-doc-install.patch
 
-BuildRequires:	python-numpy
 BuildRequires:	ruby
 BuildRequires:	bzip2-devel
-BuildRequires:	kdelibs4-devel
+BuildRequires:	cfitsio-devel
+BuildRequires:	kdelibs-devel > 4
 BuildRequires:	pkgconfig(fftw3)
 BuildRequires:	pkgconfig(gconf-2.0)
 BuildRequires:	pkgconfig(gl)
@@ -32,31 +33,42 @@ BuildRequires:	pkgconfig(gtksourceview-2.0)
 BuildRequires:	pkgconfig(IlmBase)
 BuildRequires:	pkgconfig(libpng)
 BuildRequires:	pkgconfig(libtiff-4)
+BuildRequires:	pkgconfig(libzip)
 BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(minizip)
+BuildRequires:	pkgconfig(OpenEXR)
 BuildRequires:	pkgconfig(pango)
-BuildRequires:	pkgconfig(python)
+BuildRequires:	pkgconfig(python2)
 BuildRequires:	pkgconfig(pygtk-2.0)
 BuildRequires:	pkgconfig(unique-1.0)
 BuildRequires:	pkgconfig(xmu)
 BuildRequires:	pkgconfig(zlib)
+BuildRequires:	python2-numpy #pythonegg(numpy)
+
+BuildRequires:	epydoc
+#BuildRequires:	gtk-doc
+#BuildRequires:	fpc #-base
 
 %description
-Gwyddion is a modular SPM (Scanning Probe Microsopy) data visualization and
-analysis tool written with Gtk+.
+# adapted from the homepage
+Gwyddion is a modular program for SPM (scanning probe microscopy) data
+visualization and analysis. Primarily it is intended for analysis of height
+fields obtained by scanning probe microscopy techniques (AFM, MFM, STM,
+SNOM/NSOM) and it supports many SPM data formats. However, it can also be
+used for general height field and image processing, for instance for analysis
+of profilometry data.
 
-It can be used for all most frequently used data processing operations
-including: leveling, false color plotting, shading, filtering, denoising, data
-editing, integral transforms, grain analysis, profile extraction, fractal
-analysis, and many more.  The program is primarily focused on SPM data analysis
-(e.g. data obtained from AFM, STM, NSOM, and similar microscopes).  However, it
-can also be used for analysis of SEM (Scanning Electron Microscopy) data or any
-other 2D data.
+Gwyddion aims to provide a modular program for 2D data processing and analysis
+that can be easily extended by third-party modules and scripts. Moreover, the
+status of free software enables to provide the source code to developers and
+users, which makes the further program improvement easier.
+
+Its graphical user interface is based on Gtk+.
 
 %files -f %{name}.lang
+%doc AUTHORS NEWS README THANKS
 %{_bindir}/%{name}
 %{_bindir}/%{name}-thumbnailer
-%doc AUTHORS NEWS README THANKS
 %{_datadir}/%{name}/
 %{_mandir}/man1/%{name}.1*
 %{_mandir}/man1/%{name}-thumbnailer.1*
@@ -84,7 +96,7 @@ Shared library for Gwyddion and its modules.
 %package -n %{libgwyapp}
 Summary:	Shared library for Gwyddion
 Group:		System/Libraries
-Conflicts:	%{_lib}gwyddion2_0 < 2.34
+Conflicts:	%{_lib}gwyddion2_0 < %{version}
 
 %description -n %{libgwyapp}
 Shared library for Gwyddion and its modules.
@@ -97,7 +109,7 @@ Shared library for Gwyddion and its modules.
 %package -n %{libgwydgets}
 Summary:	Shared library for Gwyddion
 Group:		System/Libraries
-Conflicts:	%{_lib}gwyddion2_0 < 2.34
+Conflicts:	%{_lib}gwyddion2_0 < %{version}
 
 %description -n %{libgwydgets}
 Shared library for Gwyddion and its modules.
@@ -110,7 +122,7 @@ Shared library for Gwyddion and its modules.
 %package -n %{libgwydraw}
 Summary:	Shared library for Gwyddion
 Group:		System/Libraries
-Conflicts:	%{_lib}gwyddion2_0 < 2.34
+Conflicts:	%{_lib}gwyddion2_0 < %{version}
 
 %description -n %{libgwydraw}
 Shared library for Gwyddion and its modules.
@@ -123,7 +135,7 @@ Shared library for Gwyddion and its modules.
 %package -n %{libgwymodule}
 Summary:	Shared library for Gwyddion
 Group:		System/Libraries
-Conflicts:	%{_lib}gwyddion2_0 < 2.34
+Conflicts:	%{_lib}gwyddion2_0 < %{version}
 
 %description -n %{libgwymodule}
 Shared library for Gwyddion and its modules.
@@ -136,7 +148,7 @@ Shared library for Gwyddion and its modules.
 %package -n %{libgwyprocess}
 Summary:	Shared library for Gwyddion
 Group:		System/Libraries
-Conflicts:	%{_lib}gwyddion2_0 < 2.34
+Conflicts:	%{_lib}gwyddion2_0 < %{version}
 
 %description -n %{libgwyprocess}
 Shared library for Gwyddion and its modules.
@@ -155,9 +167,10 @@ Requires:	%{libgwydgets} = %{EVRD}
 Requires:	%{libgwydraw} = %{EVRD}
 Requires:	%{libgwymodule} = %{EVRD}
 Requires:	%{libgwyprocess} = %{EVRD}
+
 Provides:	%{name}-devel = %{EVRD}
-Obsoletes:	%{name}-devel < 2.34
-Conflicts:	%{name}-devel < 2.34
+Obsoletes:	%{name}-devel < %{version}
+Conflicts:	%{name}-devel < %{version}
 
 %description -n %{devname}
 Header files, libraries and tools for Gwyddion module and plug-in development.
@@ -169,7 +182,7 @@ programming languages.
 %doc data/%{name}.vim
 %{_includedir}/%{name}/
 %{_datadir}/gtk-doc/html/*
-%{_datadir}/gtksourceview-2.0/language-specs/pygwy.lang
+#%{_datadir}/gtksourceview-2.0/language-specs/pygwy.lang
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/gwyddion.pc
 %{_libdir}/%{name}/include/gwyconfig.h
@@ -212,25 +225,23 @@ files.
 %prep
 %setup -q
 
+# apply all patches
+#% patch0 -p1 -b .orig
+
 %build
-%configure2_5x \
-	--without-pascal \
-	--disable-rpath \
+autoreconf -ifv
+%configure \
+	--enable-pygwy \
 	--with-kde4-thumbnailer \
-	--with-fftw3 \
-	--with-gl \
+	--enable-gtk-doc \
 	--enable-library-bloat
 %make
 
 %install
 %makeinstall_std
 
+# localizations
 %find_lang %{name}
-
-# I cannot express this as %%files in a sensible manner, especially not when
-# python byte-compilation kicks in.  Set permissions in the filesystem.
-find %{buildroot}%{_libexecdir}/%{name} -type f -print0 | xargs -0 chmod 755
-find %{buildroot}%{_libexecdir}/%{name} -type f -name \*.rgi -print0 | xargs -0 chmod 644
 
 # Perl, Python, and Ruby modules are private, remove the Perl man page.
 rm -f %{buildroot}%{_mandir}/man3/Gwyddion::dump.*
