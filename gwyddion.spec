@@ -17,7 +17,7 @@ Group:		Sciences/Physics
 URL:		http://gwyddion.net/
 Source0:	https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
 Source1:	https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz.sig
-#Patch0:	http://gwyddion.net/download/2.45/gwyddion-2.45-gtk-doc-install.patch
+Patch0:		http://gwyddion.net/download/2.45/gwyddion-2.45-gtk-doc-install.patch
 
 BuildRequires:	ruby
 BuildRequires:	bzip2-devel
@@ -227,7 +227,7 @@ files.
 %setup -q
 
 # apply all patches
-#% patch0 -p1 -b .orig
+%patch0 -p1 -b .orig
 
 %build
 export PYTHON=%{__python2} 
