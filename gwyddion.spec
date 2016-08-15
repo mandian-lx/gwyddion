@@ -230,6 +230,8 @@ files.
 #% patch0 -p1 -b .orig
 
 %build
+export PYTHON=%{__python2} 
+
 autoreconf -ifv
 %configure \
 	--enable-pygwy \
