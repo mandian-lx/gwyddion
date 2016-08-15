@@ -78,7 +78,7 @@ Its graphical user interface is based on Gtk+.
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/mime/packages/%{name}.xml
 %{_datadir}/thumbnailers/gwyddion.thumbnailer
-%{python_sitearch}/gwy.so
+%{python2_sitearch}/gwy.so
 
 #----------------------------------------------------------------------------
 
@@ -183,7 +183,7 @@ programming languages.
 %doc data/%{name}.vim
 %{_includedir}/%{name}/
 %{_datadir}/gtk-doc/html/*
-#%{_datadir}/gtksourceview-2.0/language-specs/pygwy.lang
+%{_datadir}/gtksourceview-2.0/language-specs/pygwy.lang
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/gwyddion.pc
 %{_libdir}/%{name}/include/gwyconfig.h
