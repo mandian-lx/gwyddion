@@ -39,12 +39,12 @@ BuildRequires:	pkgconfig(libxml-2.0)
 BuildRequires:	pkgconfig(minizip)
 BuildRequires:	pkgconfig(OpenEXR)
 BuildRequires:	pkgconfig(pango)
-BuildRequires:	pkgconfig(python2)
+BuildRequires:	pkgconfig(python)
 BuildRequires:	pkgconfig(pygtk-2.0)
 BuildRequires:	pkgconfig(unique-1.0)
 BuildRequires:	pkgconfig(xmu)
 BuildRequires:	pkgconfig(zlib)
-BuildRequires:	python2-numpy #pythonegg(numpy)
+BuildRequires:	pythonegg(numpy)
 
 BuildRequires:	epydoc
 BuildRequires:	gtk-doc
