@@ -15,9 +15,9 @@ Release:	1
 License:	GPLv2+
 Group:		Sciences/Physics
 URL:		http://gwyddion.net/
-Source0:	https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
-Source1:	https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz.sig
-Patch0:		http://gwyddion.net/download/2.45/gwyddion-2.45-gtk-doc-install.patch
+Source0:	%{name}-%{version}.tar.xz
+Source1:	%{name}-%{version}.tar.xz.sig
+Patch0:		gwyddion-2.45-gtk-doc-install.patch
 
 BuildRequires:	ruby
 BuildRequires:	bzip2-devel
