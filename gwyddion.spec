@@ -23,7 +23,7 @@ BuildRequires:	ruby
 BuildRequires:	bzip2-devel
 BuildRequires:	cfitsio-devel
 BuildRequires:	intltool
-BuildRequires:	kdelibs-devel > 4
+BuildRequires:	kdelibs4-devel
 BuildRequires:	pkgconfig(fftw3)
 BuildRequires:	pkgconfig(gconf-2.0)
 BuildRequires:	pkgconfig(gl)
