@@ -78,7 +78,7 @@ Its graphical user interface is based on Gtk+.
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/mime/packages/%{name}.xml
 %{_datadir}/thumbnailers/gwyddion.thumbnailer
-%{python2_sitearch}/gwy.so
+%{python_sitearch}/gwy.so
 
 #----------------------------------------------------------------------------
 
@@ -230,8 +230,6 @@ files.
 %patch0 -p1 -b .orig
 
 %build
-export PYTHON=%{__python2} 
-
 autoreconf -ifv
 %configure \
 	--enable-pygwy \
