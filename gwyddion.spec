@@ -240,12 +240,13 @@ autoreconf -ifv
 
 %install
 %makeinstall_std
-
+	
 # fix .desktop
 desktop-file-edit \
+    --remove-category="GTK" \
+    --add-category="GTK" \
     --add-category="Education" \
     %{buildroot}%{_datadir}/applications/%{name}.desktop
-
 
 # localizations
 %find_lang %{name}
