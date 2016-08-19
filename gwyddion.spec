@@ -230,7 +230,7 @@ files.
 %patch0 -p1 -b .orig
 
 %build
-export PYTHON=%{__python2} 
+export PYTHON=%{__python2}
 
 autoreconf -ifv
 %configure \
@@ -245,6 +245,8 @@ autoreconf -ifv
 
 # fix .desktop
 desktop-file-edit \
+    --remove-category="GTK" \
+    --add-category="GTK" \
     --add-category="Education" \
     %{buildroot}%{_datadir}/applications/%{name}.desktop
 
