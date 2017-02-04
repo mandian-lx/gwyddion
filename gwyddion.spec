@@ -10,19 +10,17 @@
 
 Summary:	A SPM (scanning probe microscopy) data visualization and analysis tool
 Name:		gwyddion
-Version:	2.45
-Release:	1
+Version:	2.47
+Release:	0
 License:	GPLv2+
 Group:		Sciences/Physics
 URL:		http://gwyddion.net/
 Source0:	https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
 Source1:	https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz.sig
-Patch0:		http://gwyddion.net/download/2.45/gwyddion-2.45-gtk-doc-install.patch
 
 BuildRequires:	ruby
 BuildRequires:	bzip2-devel
 BuildRequires:	cfitsio-devel
-BuildRequires:	intltool
 BuildRequires:	kdelibs-devel > 4
 BuildRequires:	pkgconfig(fftw3)
 BuildRequires:	pkgconfig(gconf-2.0)
@@ -44,7 +42,7 @@ BuildRequires:	pkgconfig(pygtk-2.0)
 BuildRequires:	pkgconfig(unique-1.0)
 BuildRequires:	pkgconfig(xmu)
 BuildRequires:	pkgconfig(zlib)
-BuildRequires:	python2-numpy #pythonegg(numpy)
+BuildRequires:	pythonegg(numpy)
 
 BuildRequires:	epydoc
 BuildRequires:	gtk-doc
@@ -97,7 +95,7 @@ Shared library for Gwyddion and its modules.
 %package -n %{libgwyapp}
 Summary:	Shared library for Gwyddion
 Group:		System/Libraries
-Conflicts:	%{_lib}gwyddion2_0 < %{version}
+Conflicts:	%{_lib}gwyddion2_0 < 2.34
 
 %description -n %{libgwyapp}
 Shared library for Gwyddion and its modules.
@@ -110,7 +108,7 @@ Shared library for Gwyddion and its modules.
 %package -n %{libgwydgets}
 Summary:	Shared library for Gwyddion
 Group:		System/Libraries
-Conflicts:	%{_lib}gwyddion2_0 < %{version}
+Conflicts:	%{_lib}gwyddion2_0 < 2.34
 
 %description -n %{libgwydgets}
 Shared library for Gwyddion and its modules.
@@ -123,7 +121,7 @@ Shared library for Gwyddion and its modules.
 %package -n %{libgwydraw}
 Summary:	Shared library for Gwyddion
 Group:		System/Libraries
-Conflicts:	%{_lib}gwyddion2_0 < %{version}
+Conflicts:	%{_lib}gwyddion2_0 < 2.34
 
 %description -n %{libgwydraw}
 Shared library for Gwyddion and its modules.
@@ -136,7 +134,7 @@ Shared library for Gwyddion and its modules.
 %package -n %{libgwymodule}
 Summary:	Shared library for Gwyddion
 Group:		System/Libraries
-Conflicts:	%{_lib}gwyddion2_0 < %{version}
+Conflicts:	%{_lib}gwyddion2_0 < 2.34
 
 %description -n %{libgwymodule}
 Shared library for Gwyddion and its modules.
@@ -149,7 +147,7 @@ Shared library for Gwyddion and its modules.
 %package -n %{libgwyprocess}
 Summary:	Shared library for Gwyddion
 Group:		System/Libraries
-Conflicts:	%{_lib}gwyddion2_0 < %{version}
+Conflicts:	%{_lib}gwyddion2_0 < 2.34
 
 %description -n %{libgwyprocess}
 Shared library for Gwyddion and its modules.
@@ -168,10 +166,9 @@ Requires:	%{libgwydgets} = %{EVRD}
 Requires:	%{libgwydraw} = %{EVRD}
 Requires:	%{libgwymodule} = %{EVRD}
 Requires:	%{libgwyprocess} = %{EVRD}
-
 Provides:	%{name}-devel = %{EVRD}
-Obsoletes:	%{name}-devel < %{version}
-Conflicts:	%{name}-devel < %{version}
+Obsoletes:	%{name}-devel < 2.34
+Conflicts:	%{name}-devel < 2.34
 
 %description -n %{devname}
 Header files, libraries and tools for Gwyddion module and plug-in development.
@@ -205,7 +202,7 @@ GConf schemas that register gwyddion-thumbnailer as thumbnailer for SPM files
 in GNOME and XFce.
 
 %files thumbnailer-gconf
-%{_sysconfdir}/gconf/schemas/gwyddion-thumbnailer.schemas
+%config(noreplace) %{_sysconfdir}/gconf/schemas/gwyddion-thumbnailer.schemas
 
 #----------------------------------------------------------------------------
 
@@ -227,10 +224,10 @@ files.
 %setup -q
 
 # apply all patches
-%patch0 -p1 -b .orig
+#patch0 -p1 -b .orig
 
 %build
-export PYTHON=%{__python2}
+export PYTHON=%{__python2} 
 
 autoreconf -ifv
 %configure \
@@ -242,13 +239,6 @@ autoreconf -ifv
 
 %install
 %makeinstall_std
-
-# fix .desktop
-desktop-file-edit \
-    --remove-category="GTK" \
-    --add-category="GTK" \
-    --add-category="Education" \
-    %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 # localizations
 %find_lang %{name}
