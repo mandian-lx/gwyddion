@@ -15,9 +15,8 @@ Release:	1
 License:	GPLv2+
 Group:		Sciences/Physics
 URL:		http://gwyddion.net/
-Source0:	%{name}-%{version}.tar.xz
-Source1:	%{name}-%{version}.tar.xz.sig
-Patch0:		gwyddion-2.45-gtk-doc-install.patch
+Source0:	https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
+Source1:	https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz.sig
 
 BuildRequires:	ruby
 BuildRequires:	bzip2-devel
@@ -205,7 +204,7 @@ GConf schemas that register gwyddion-thumbnailer as thumbnailer for SPM files
 in GNOME and XFce.
 
 %files thumbnailer-gconf
-%{_sysconfdir}/gconf/schemas/gwyddion-thumbnailer.schemas
+%config(noreplace) %{_sysconfdir}/gconf/schemas/gwyddion-thumbnailer.schemas
 
 #----------------------------------------------------------------------------
 
@@ -225,9 +224,6 @@ files.
 
 %prep
 %setup -q
-
-# apply all patches
-%patch0 -p1 -b .orig
 
 %build
 autoreconf -ifv
