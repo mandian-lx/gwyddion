@@ -21,6 +21,7 @@ Source1:	https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz.sig
 BuildRequires:	ruby
 BuildRequires:	bzip2-devel
 BuildRequires:	cfitsio-devel
+BuildRequires:	intltool
 BuildRequires:	kdelibs-devel > 4
 BuildRequires:	pkgconfig(fftw3)
 BuildRequires:	pkgconfig(gconf-2.0)
@@ -95,7 +96,7 @@ Shared library for Gwyddion and its modules.
 %package -n %{libgwyapp}
 Summary:	Shared library for Gwyddion
 Group:		System/Libraries
-Conflicts:	%{_lib}gwyddion2_0 < 2.34
+Conflicts:	%{_lib}gwyddion2_0 < %{version}
 
 %description -n %{libgwyapp}
 Shared library for Gwyddion and its modules.
@@ -108,7 +109,7 @@ Shared library for Gwyddion and its modules.
 %package -n %{libgwydgets}
 Summary:	Shared library for Gwyddion
 Group:		System/Libraries
-Conflicts:	%{_lib}gwyddion2_0 < 2.34
+Conflicts:	%{_lib}gwyddion2_0 < %{version}
 
 %description -n %{libgwydgets}
 Shared library for Gwyddion and its modules.
@@ -121,7 +122,7 @@ Shared library for Gwyddion and its modules.
 %package -n %{libgwydraw}
 Summary:	Shared library for Gwyddion
 Group:		System/Libraries
-Conflicts:	%{_lib}gwyddion2_0 < 2.34
+Conflicts:	%{_lib}gwyddion2_0 < %{version}
 
 %description -n %{libgwydraw}
 Shared library for Gwyddion and its modules.
@@ -134,7 +135,7 @@ Shared library for Gwyddion and its modules.
 %package -n %{libgwymodule}
 Summary:	Shared library for Gwyddion
 Group:		System/Libraries
-Conflicts:	%{_lib}gwyddion2_0 < 2.34
+Conflicts:	%{_lib}gwyddion2_0 < %{version}
 
 %description -n %{libgwymodule}
 Shared library for Gwyddion and its modules.
@@ -147,7 +148,7 @@ Shared library for Gwyddion and its modules.
 %package -n %{libgwyprocess}
 Summary:	Shared library for Gwyddion
 Group:		System/Libraries
-Conflicts:	%{_lib}gwyddion2_0 < 2.34
+Conflicts:	%{_lib}gwyddion2_0 < %{version}
 
 %description -n %{libgwyprocess}
 Shared library for Gwyddion and its modules.
@@ -167,8 +168,8 @@ Requires:	%{libgwydraw} = %{EVRD}
 Requires:	%{libgwymodule} = %{EVRD}
 Requires:	%{libgwyprocess} = %{EVRD}
 Provides:	%{name}-devel = %{EVRD}
-Obsoletes:	%{name}-devel < 2.34
-Conflicts:	%{name}-devel < 2.34
+Obsoletes:	%{name}-devel < %{version}
+Conflicts:	%{name}-devel < %{version}
 
 %description -n %{devname}
 Header files, libraries and tools for Gwyddion module and plug-in development.
@@ -223,9 +224,6 @@ files.
 %prep
 %setup -q
 
-# apply all patches
-#patch0 -p1 -b .orig
-
 %build
 export PYTHON=%{__python2} 
 
@@ -239,6 +237,13 @@ autoreconf -ifv
 
 %install
 %makeinstall_std
+	
+# fix .desktop
+desktop-file-edit \
+    --remove-category="GTK" \
+    --add-category="GTK" \
+    --add-category="Education" \
+    %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 # localizations
 %find_lang %{name}
