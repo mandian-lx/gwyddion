@@ -167,7 +167,6 @@ Requires:	%{libgwydgets} = %{EVRD}
 Requires:	%{libgwydraw} = %{EVRD}
 Requires:	%{libgwymodule} = %{EVRD}
 Requires:	%{libgwyprocess} = %{EVRD}
-
 Provides:	%{name}-devel = %{EVRD}
 Obsoletes:	%{name}-devel < %{version}
 Conflicts:	%{name}-devel < %{version}
