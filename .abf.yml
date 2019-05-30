@@ -1,7 +1,7 @@
 removed_sources:
-  "gwyddion-2.47.tar.xz":  d4113467694b2f2bdab09a24f2cb505f7780880f
-  "gwyddion-2.47.tar.xz.sig":  01936bc6aa2daeb107d5546887994d33c6850a48
+  gwyddion-2.47.tar.xz: d4113467694b2f2bdab09a24f2cb505f7780880f
+  gwyddion-2.47.tar.xz.sig: 01936bc6aa2daeb107d5546887994d33c6850a48
+  gwyddion-2.51.tar.xz: 58e1f39a5f6799e2ac90d34db4dc9810e8441ef9
 sources:
-  "gwyddion-2.51.tar.xz":  58e1f39a5f6799e2ac90d34db4dc9810e8441ef9
-  "gwyddion-2.51.tar.xz.sig": 4d694fa06a5037c7c7cd3fbf5bc0145f800a709a
-
+  gwyddion-2.51.tar.xz.sig: 4d694fa06a5037c7c7cd3fbf5bc0145f800a709a
+  gwyddion-2.53.tar.xz: e3fd6f9ebaa1adf1b87e41f7fb17f38caeffcf4a
