@@ -1,0 +1,11 @@
+--- gwyddion.orig/libgwyddion/gwyexpr.c	2019-02-28 17:36:38.000000000 +0100
++++ gwyddion/libgwyddion/gwyexpr.c	2019-02-28 17:36:50.529132147 +0100
+@@ -427,7 +427,7 @@ gwy_expr_stack_interpret_vectors(GwyExpr
+ {
+ #ifdef _OPENMP
+ #pragma omp parallel if(gwy_threads_are_enabled()) default(none) \
+-            shared(expr,n,data,result)
++            shared(expr,n,data,result,call_table)
+ #endif
+     {
+         gdouble *stack = gwy_omp_if_threads_new(expr->stack, expr->slen);

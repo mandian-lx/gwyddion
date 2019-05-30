@@ -1,0 +1,11 @@
+--- gwyddion.orig/libgwyddion/gwyutils.c	(revision 21942)
++++ gwyddion/libgwyddion/gwyutils.c	(working copy)
+@@ -587,7 +587,7 @@
+ {
+     int len, maxlen = 256;
+     char *res_url_path;
+-    gchar *basedir;
++    gchar *basedir = NULL;
+ 
+     CFBundleRef bundle_ref = NULL;
+     CFStringRef bid_str_ref = NULL;

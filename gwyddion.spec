@@ -17,6 +17,10 @@ Group:		Sciences/Physics
 URL:		http://gwyddion.net/
 Source0:	https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
 Source1:	https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz.sig
+# (upstream) http://gwyddion.net/download/2.53/gwyddion-2.53-gcc9-openmp-shared-const.patch
+Patch0:		gwyddion-2.53-gcc9-openmp-shared-const.patch
+# (upstream) http://gwyddion.net/download/2.53/gwyddion-2.53-ensure-osx-basedir.patch
+Patch1:		gwyddion-2.53-ensure-osx-basedir.patch
 
 BuildRequires:	ruby
 BuildRequires:	bzip2-devel
@@ -223,9 +227,10 @@ files.
 
 %prep
 %setup -q
+%autopatch -p1
 
 %build
-export PYTHON=%{__python2} 
+export PYTHON=%{__python2}
 
 autoreconf -ifv
 %configure \
@@ -233,21 +238,20 @@ autoreconf -ifv
 	--with-kde4-thumbnailer \
 	--enable-gtk-doc \
 	--enable-library-bloat
-%make
+%make_build
 
 %install
-%makeinstall_std
-	
+%make_install
+
 # fix .desktop
 desktop-file-edit \
-    --remove-category="GTK" \
-    --add-category="GTK" \
-    --add-category="Education" \
-    %{buildroot}%{_datadir}/applications/%{name}.desktop
+	--remove-category="GTK" \
+	--add-category="GTK" \
+ 	--add-category="Education" \
+	%{buildroot}%{_datadir}/applications/%{name}.desktop
 
 # localizations
 %find_lang %{name}
 
 # Perl, Python, and Ruby modules are private, remove the Perl man page.
 rm -f %{buildroot}%{_mandir}/man3/Gwyddion::dump.*
-
